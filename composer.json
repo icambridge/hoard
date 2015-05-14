@@ -1,0 +1,23 @@
+{
+    "name": "icambridge/hoard",
+    "description": "A cache system",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Iain Cambridge",
+            "email": "iain@iain.sexy"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+      "phpspec/phpspec": "~2.0"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": {
+            "Hoard\\": "src/"
+        }
+    }
+}
