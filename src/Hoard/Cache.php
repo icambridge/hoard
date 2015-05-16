@@ -4,7 +4,7 @@ namespace Hoard;
 
 use Hoard\Storage\System;
 
-class Cache
+class Cache implements System
 {
     /**
      * @var System
