@@ -6,18 +6,31 @@ use Hoard\Storage\System;
 
 class Cache
 {
+    /**
+     * @var System
+     */
     private $system;
 
-    private $superHot;
-
+    /**
+     * @var System
+     */
     private $normal;
 
+    /**
+     * @param System $system
+     * @param System $normal
+     */
     public function __construct(System $system, System $normal)
     {
         $this->system = $system;
         $this->normal = $normal;
     }
 
+    /**
+     * @param string $key
+     * @param bool $force
+     * @return null
+     */
     public function get($key, $force = false)
     {
         $result = null;
@@ -30,11 +43,33 @@ class Cache
             return $result;
         }
 
-        return $this->normal->get($key);
+        $data = $this->normal->get($key);
+
+        $this->system->set($key, $data);
+
+        return $data;
     }
 
-    public function set($argument1, $argument2)
+    /**
+     * @param string $key
+     * @param string $data
+     * @param int $ttl
+     */
+    public function set($key, $data, $ttl = 0)
     {
-        // TODO: write logic here
+        $this->system->set($key, $data, $ttl);
+        $this->normal->set($key, $data, $ttl);
+    }
+
+    public function delete($key)
+    {
+        $this->system->delete($key);
+        $this->normal->delete($key);
+    }
+
+    public function flush()
+    {
+        $this->system->flush();
+        $this->normal->flush();
     }
 }
